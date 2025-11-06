@@ -1,0 +1,54 @@
+# Development and testing dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# Testing framework and utilities
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+pytest-xdist>=3.3.0
+httpx>=0.24.0
+factory-boy>=3.3.0
+faker>=19.0.0
+
+# Code formatting and linting
+black>=23.7.0
+isort>=5.12.0
+flake8>=6.0.0
+flake8-docstrings>=1.7.0
+flake8-import-order>=0.18.0
+flake8-bugbear>=23.7.0
+flake8-comprehensions>=3.14.0
+mypy>=1.5.0
+bandit>=1.7.5
+safety>=2.3.0
+
+# Pre-commit hooks
+pre-commit>=3.3.0
+commitizen>=3.8.0
+
+# Documentation
+mkdocs>=1.5.0
+mkdocs-material>=9.2.0
+mkdocs-mermaid2-plugin>=0.6.0
+
+# Development utilities
+watchdog>=3.0.0
+rich>=13.0.0
+typer>=0.9.0
+debugpy>=1.7.0
+ipdb>=0.13.0
+
+# Performance and profiling
+memory-profiler>=0.61.0
+py-spy>=0.3.14
+
+# Database tools
+sqlalchemy-utils>=0.41.0
+alembic>=1.12.1
+
+# Security
+cryptography>=41.0.0
+
+# Development server and reload
+watchfiles>=0.20.0

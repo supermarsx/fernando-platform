@@ -1,0 +1,3 @@
+# This directory stores processed documents and results
+# Do not commit processed documents to version control
+# Individual files are ignored by .gitignore

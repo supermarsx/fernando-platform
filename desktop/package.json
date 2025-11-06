@@ -1,0 +1,167 @@
+{
+  "name": "fernando-desktop",
+  "version": "1.0.0",
+  "description": "Fernando Desktop Client",
+  "main": "dist/main.js",
+  "author": "Fernando",
+  "license": "MIT",
+  "homepage": ".",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "@electron-toolkit/preload": "^3.0.0",
+    "@electron-toolkit/utils": "^3.0.0",
+    "sqlite3": "^5.1.7",
+    "electron-store": "^8.1.0",
+    "axios": "^1.13.2",
+    "multer": "^1.4.5-lts.1",
+    "node-pty": "^1.0.0",
+    "electron-updater": "^6.1.7",
+    "pdf-parse": "^1.1.1",
+    "sharp": "^0.33.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.2.0",
+    "electron-log": "^5.0.1",
+    "electron-window-state": "^5.0.3",
+    "electron-dl": "^3.5.0",
+    "electron-context-menu": "^3.6.1"
+  },
+  "devDependencies": {
+    "@electron/vite": "^2.3.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^22.10.7",
+    "@types/pdf-parse": "^1.1.4",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "electron": "^28.3.1",
+    "electron-builder": "^24.13.3",
+    "electron-vite": "^2.3.0",
+    "typescript": "~5.6.2",
+    "vue": "^3.4.21",
+    "vue-tsc": "~2.0.21"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "build": {
+    "appId": "com.fernando.desktop",
+    "productName": "Fernando",
+    "directories": {
+      "output": "release/${version}"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "preload/**/*",
+      "!**/*.{ts,js.map}",
+      "!src/**/*",
+      "!tests/**/*",
+      "!docs/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "backend/db/fernando.db",
+        "to": "db/fernando.db",
+        "filter": ["**/*"]
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.finance",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "gatekeeper-assess": false,
+      "hardenedRuntime": true,
+      "type": "distribution",
+      "identity": "Developer ID Application: YOUR_NAME (TEAM_ID)"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "certificateFile": "build/certificate.p12",
+      "certificatePassword": "${env.CERTIFICATE_PASSWORD}",
+      "sign": "node scripts/sign.js",
+      "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
+    },
+    "linux": {
+      "category": "Office",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.png",
+      "desktop": {
+        "Name": "Fernando",
+        "Comment": "Document processing application",
+        "Keywords": "fernando;documents;automation;"
+      }
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Fernando"
+    },
+    "dmg": {
+      "title": "Fernando {{version}}",
+      "icon": "build/icon.icns",
+      "iconSize": 80,
+      "window": {
+        "width": 540,
+        "height": 620
+      },
+      "contents": [
+        {
+          "x": 130,
+          "y": 220,
+          "type": "file"
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "your-org",
+      "repo": "fernando-desktop"
+    },
+    "compression": "maximum"
+  }
+}
